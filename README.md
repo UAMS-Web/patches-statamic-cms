@@ -4,8 +4,6 @@ Patches that UAMS-Web repositories apply to [`statamic/cms`](https://github.com/
 
 This package pins `statamic/cms` to exactly `6.40.0`. Every patch is written against that release.
 
-This repository is private. `statamic/cms` is under Statamic LLC's license, which does not allow its code to be reused in other projects without consent, so these patches are not published.
-
 ## Install
 
 An application requires it in `require` (the plugin applies a dependency's patches only from `packages` in `composer.lock`):
@@ -17,8 +15,6 @@ composer require --no-plugins uams-web/patches-statamic-cms:^1.0
 A package that another repository installs requires it with `--dev` and lists the patch files in its own root `patches.json`. The full procedure, including `composer patches-relock` and `composer patches-repatch`, is the `upstream-patch-lifecycle` skill's *Moving a consumer to the package*.
 
 Patch paths are relative to the consumer's root and start `vendor/uams-web/patches-statamic-cms/patches/`, so a consumer with a non-default `vendor-dir` is not covered.
-
-A consumer needs Composer authentication to this private repository (a GitHub token with read access to it) and a `vcs` entry for it in `repositories`.
 
 ## Patches
 
@@ -51,4 +47,4 @@ Apply the 10 patches in order to the `v6.40.0` tag of `statamic/cms` with `git a
 
 ## License
 
-Proprietary, not for redistribution. The patches modify `statamic/cms`, which is licensed by Statamic LLC.
+The added lines in the patches are UAMS-Web's. Their removed and context lines are `statamic/cms` code, which is licensed by Statamic LLC under terms this repository does not change, and no license is granted here for that code.
