@@ -38,6 +38,7 @@ Applied in this order, which is the order in `composer.json`. A later patch is c
 - **`statamic-stache-terms-vanished-file-paths.patch`**: Skip a Stache term file removed after its stat in TaxonomyTermsStore::paths() so it is not rebuilt as a new, empty term (temporary; see UAMS-Web/uams-statamic-archive#2643)
 - **`statamic-stache-terms-vanished-file-get-item.patch`**: Return null from TaxonomyTermsStore::getItem() for a term file removed after its path was recorded, rather than rebuild it (temporary; see UAMS-Web/uams-statamic-archive#2643)
 - **`statamic-stache-basic-vanished-file-get-item.patch`**: Return null from BasicStore::getItem() for a file removed after its path was recorded, rather than rebuild it (temporary; see UAMS-Web/uams-statamic-archive#2643)
+- **`statamic-blueprint-namespace-slash.patch`**: Resolve a collection blueprint served from an add-on directory by normalizing the namespace in makeBlueprintFromFile() (temporary; see UAMS-Web/uams-statamic#281)
 
 Each description names the ticket that tracks the upstream fix, where there is one.
 
@@ -51,7 +52,9 @@ Each description names the ticket that tracks the upstream fix, where there is o
 
 ## Verifying the set
 
-Apply the 10 patches in order to the `v6.40.0` tag of `statamic/cms` with `git apply -p1`. Applying the first patch a second time must fail.
+Apply the 11 patches in order to the `v6.40.0` tag of `statamic/cms` with `git apply -p1`. Applying the first patch a second time must fail.
+
+`tests/CollectionBlueprintNamespaceTest.php` is the regression test for `statamic-blueprint-namespace-slash.patch`. Copy it into the `tests/` directory of that checkout and run it with `vendor/bin/phpunit`: it fails on stock `statamic/cms` 6.40.0 (`Undefined array key 0`) and passes once the patches are applied.
 
 ## License
 
