@@ -1,0 +1,13 @@
+diff --git a/src/Fields/BlueprintRepository.php b/src/Fields/BlueprintRepository.php
+index 2db699c..f2527e4 100644
+--- a/src/Fields/BlueprintRepository.php
++++ b/src/Fields/BlueprintRepository.php
+@@ -319,6 +319,8 @@ class BlueprintRepository
+ 
+     protected function makeBlueprintFromFile($path, $namespace = null)
+     {
++        $namespace = $namespace ? str_replace('/', '.', $namespace) : $namespace;
++
+         return Blink::store(self::BLINK_FROM_FILE)->once($path, function () use ($path, $namespace) {
+             if (! $namespace || ! isset($this->additionalNamespaces[$namespace])) {
+                 [$namespace, $handle] = $this->getNamespaceAndHandleFromPath($path);
