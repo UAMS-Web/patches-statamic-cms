@@ -38,7 +38,7 @@ Applied in this order, which is the order in `composer.json`. A later patch is c
 - **`statamic-stache-terms-vanished-file-paths.patch`**: Skip a Stache term file removed after its stat in TaxonomyTermsStore::paths() so it is not rebuilt as a new, empty term (temporary; see UAMS-Web/uams-statamic-archive#2643)
 - **`statamic-stache-terms-vanished-file-get-item.patch`**: Return null from TaxonomyTermsStore::getItem() for a term file removed after its path was recorded, rather than rebuild it (temporary; see UAMS-Web/uams-statamic-archive#2643)
 - **`statamic-stache-basic-vanished-file-get-item.patch`**: Return null from BasicStore::getItem() for a file removed after its path was recorded, rather than rebuild it (temporary; see UAMS-Web/uams-statamic-archive#2643)
-- **`statamic-blueprint-namespace-slash.patch`**: Resolve a collection blueprint served from an add-on directory by normalizing the namespace in makeBlueprintFromFile() (temporary; see UAMS-Web/uams-statamic#281)
+- **`statamic-blueprint-namespace-slash.patch`**: Resolve a collection blueprint served from an add-on directory by normalizing the namespace in makeBlueprintFromFile() (temporary; see UAMS-Web/uams-statamic#281; upstream: statamic/cms#15880, statamic/cms#15881)
 
 Each description names the ticket that tracks the upstream fix, where there is one.
 
