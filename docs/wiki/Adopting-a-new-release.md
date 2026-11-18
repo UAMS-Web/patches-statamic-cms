@@ -2,11 +2,11 @@ Written against v1.1.0, and `cweagans/composer-patches` 2.0.0.
 
 A consumer already requires this package and a new release is out: a patch changed, was added or retired, or the `statamic/cms` pin moved. This is not an ordinary dependency update, because the plugin reads the committed `patches.lock.json` and never re-resolves it. A machine with the old patch cached would apply the old text, and one without it fails on a hash mismatch.
 
-The full procedure, with the measurements behind it, is *`patches.lock.json` in a consumer* in the `upstream-patch-lifecycle` skill that each consumer repository carries.
+The procedure is *`patches.lock.json` in a consumer* in the `upstream-patch-lifecycle` skill that each consumer repository carries; the end-to-end adoption is not yet measured there.
 
 ## Steps
 
-1. **In a package that lists the patches in its root `patches.json`**, edit `patches.json` to match the release first: the same patch files, in the release's order, with its description keys. An application skips this step; it applies the package's own list.
+1. **In a package that lists the patches in its root `patches.json`**, edit `patches.json` to match the release first: the same patch files, in the release's order, with the description keys from that release's `composer.json`. An application skips this step; it applies the package's own list.
 2. **Move the package and `statamic/cms` together**, with plugins off:
 
    ```bash
@@ -27,7 +27,7 @@ The full procedure, with the measurements behind it, is *`patches.lock.json` in 
 
 ## When the release retires the last patch
 
-The consumer removes the package in one change, keeping its own requirement on `statamic/cms` as it stood before it adopted the package. Where no other patch remains, it also removes `patches.json`, `patches.lock.json` and `cweagans/composer-patches`, in the order the `upstream-patch-lifecycle` skill's *Removing a patch* gives.
+The consumer removes the package in one change, and requires `statamic/cms` directly only if it did before adopting the package. Where no other patch remains, it also removes `patches.json`, `patches.lock.json` and `cweagans/composer-patches`, in the order the `upstream-patch-lifecycle` skill's *Removing a patch* gives.
 
 ## Reference
 

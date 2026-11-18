@@ -28,7 +28,7 @@ composer config repositories.patches-statamic-cms vcs https://github.com/UAMS-We
 
 **Cause:** no `patches.lock.json` is committed. The plugin resolves the patch list before the package is installed, so the patch paths under `vendor/uams-web/patches-statamic-cms/` do not exist yet.
 
-**Fix:** require the package with plugins off, then relock and reapply, and commit `patches.lock.json`:
+**Fix:** require the package with plugins off, then relock and reapply, and commit `patches.lock.json`. In a package, add `--dev` and list the patches in its root `patches.json` first; run `composer update --lock` where `composer.json` changed.
 
 ```bash
 composer require --no-plugins uams-web/patches-statamic-cms:^1.0
