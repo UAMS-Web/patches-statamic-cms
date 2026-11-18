@@ -4,6 +4,8 @@ Patches that UAMS-Web repositories apply to [`statamic/cms`](https://github.com/
 
 This package pins `statamic/cms` to exactly `6.40.0`. Every patch is written against that release.
 
+The [wiki](https://github.com/UAMS-Web/patches-statamic-cms/wiki) holds the reference and the guides: what each patch changes, adopting a new release, troubleshooting, and how a patch retires.
+
 ## Install
 
 This package is read from GitHub with a `vcs` repository, not from Packagist. The consumer's root `composer.json` lists it (Composer reads `repositories` only from the root project):
@@ -42,13 +44,11 @@ Applied in this order, which is the order in `composer.json`. A later patch is c
 
 Each description names the ticket that tracks the upstream fix, where there is one.
 
+What each patch changes, grouped by area, is on the wiki's [Patches](https://github.com/UAMS-Web/patches-statamic-cms/wiki/Patches) page.
+
 ## Versioning
 
-| Change | Release |
-| --- | --- |
-| A patch's content changes, same upstream pin | patch |
-| A patch is added or retired, or the pin moves within the upstream major | minor |
-| The pin moves to a new upstream major | major |
+Each release pins exactly one `statamic/cms` version, and the kind of change decides whether it is a patch, minor or major release. The table, and what the exact pin means for a consumer, are on the wiki's [Versioning](https://github.com/UAMS-Web/patches-statamic-cms/wiki/Versioning) page.
 
 ## Verifying the set
 
