@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * Regression test for statamic-blueprint-namespace-slash.patch.
  *
- * Run it from a statamic/cms 6.40.0 checkout: it fails on stock and passes once the patches are applied.
+ * Run it from a statamic/cms 6.43.1 checkout: it fails on stock and passes once the patches are applied.
  */
 class CollectionBlueprintNamespaceTest extends TestCase
 {
