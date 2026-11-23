@@ -10,7 +10,6 @@
       "statamic/cms": {
         "Add blueprint-aware collection create labels": "vendor/uams-web/patches-statamic-cms/patches/statamic-collection-create-label-blueprint.patch",
         "Add blueprint-aware taxonomy create labels": "vendor/uams-web/patches-statamic-cms/patches/statamic-taxonomy-create-label-blueprint.patch",
-        "Align CP updates badge with updater availableUpdatesCount": "vendor/uams-web/patches-statamic-cms/patches/statamic-updates-overview-badge.patch",
         "Resolve a collection blueprint served from an add-on directory by normalizing the namespace in makeBlueprintFromFile() (temporary; see UAMS-Web/uams-statamic#281; upstream: statamic/cms#15880, statamic/cms#15881)": "vendor/uams-web/patches-statamic-cms/patches/statamic-blueprint-namespace-slash.patch"
       }
     }

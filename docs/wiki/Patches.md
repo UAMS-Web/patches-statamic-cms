@@ -3,7 +3,6 @@ Written against v1.1.0.
 The package carries 11 patches, all against `statamic/cms` 6.40.0. This page groups them by what they change and says what each group waits on before it can retire. The order they apply in, which matters, is the [README's list](https://github.com/UAMS-Web/patches-statamic-cms#patches), the same order as `extra.patches` in [`composer.json`](https://github.com/UAMS-Web/patches-statamic-cms/blob/main/composer.json). The description keys there have gained upstream references on `main` since v1.1.0; a consumer copying them takes them from the `composer.json` of the release it adopts.
 
 - [Create labels that follow the blueprint](#create-labels-that-follow-the-blueprint)
-- [The updates badge in the Control Panel](#the-updates-badge-in-the-control-panel)
 - [A Stache file removed while it is being read](#a-stache-file-removed-while-it-is-being-read)
 - [Collection blueprints served from an add-on directory](#collection-blueprints-served-from-an-add-on-directory)
 
@@ -17,16 +16,6 @@ The package carries 11 patches, all against `statamic/cms` 6.40.0. This page gro
 Stock 6.40.0 reads the label on a collection's create button from the translation key `messages.<handle>_collection_create_entry`, and a taxonomy's from `messages.<handle>_taxonomy_create_term`. The patches move both keys into the `statamic::` namespace, so the translation is read from `lang/vendor/statamic/<locale>/messages.php` rather than the application's own `lang/<locale>/messages.php`. When the request carries a `blueprint` query parameter, the key with `.<blueprint>` appended is tried first, so each blueprint can have its own label. Where no translation exists, or the translation is not a string, the label falls back to `Create Entry` or `Create Term`.
 
 Retires through [#4](https://github.com/UAMS-Web/patches-statamic-cms/issues/4). No upstream report has been filed yet.
-
-## The updates badge in the Control Panel
-
-| Patch | Changes |
-| --- | --- |
-| `statamic-updates-overview-badge.patch` | `UpdatesOverview::checkForAddonUpdates()` in `src/Updater/UpdatesOverview.php` |
-
-The updates count counts an add-on only when it exists on the Marketplace and its changelog reports at least one available update (`availableUpdatesCount()`), rather than every add-on that is not on its latest version. The badge then agrees with the count the updater shows.
-
-Retires through [#5](https://github.com/UAMS-Web/patches-statamic-cms/issues/5). No upstream report has been filed yet.
 
 ## A Stache file removed while it is being read
 
