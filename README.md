@@ -33,7 +33,7 @@ Applied in this order, which is the order in `composer.json`. A later patch is c
 - **`statamic-collection-create-label-blueprint.patch`**: Add blueprint-aware collection create labels
 - **`statamic-taxonomy-create-label-blueprint.patch`**: Add blueprint-aware taxonomy create labels
 - **`statamic-blueprint-namespace-slash.patch`**: Resolve a collection blueprint served from an add-on directory by normalizing the namespace in makeBlueprintFromFile() (temporary; see UAMS-Web/uams-statamic#281; upstream: statamic/cms#15880, statamic/cms#15881)
-- **`statamic-stache-clear-file-items.patch`**: Reset the Stache store's cached file items in clear() so a warm after a query outside a warm does not index from a stale collection (temporary; see UAMS-Web/aether-wordpress-importer#618)
+- **`statamic-stache-clear-file-items.patch`**: Reset the Stache store's cached file items at the start of warm() so a warm after a query outside a warm does not index from a stale collection (temporary; see UAMS-Web/aether-wordpress-importer#618)
 
 Each description names the ticket that tracks the upstream fix, where there is one.
 
@@ -49,7 +49,7 @@ Apply the 4 patches in order to the `v6.43.1` tag of `statamic/cms` with `git ap
 
 `tests/CollectionBlueprintNamespaceTest.php` is the regression test for `statamic-blueprint-namespace-slash.patch`. Copy it into the `tests/` directory of that checkout and run it with `vendor/bin/phpunit`: it fails on stock `statamic/cms` 6.43.1 (`Undefined array key 0`) and passes once the patches are applied.
 
-`tests/StacheClearFileItemsTest.php` is the regression test for `statamic-stache-clear-file-items.patch`. Copy it into the `tests/` directory of the same checkout and run it the same way: it fails on stock `statamic/cms` 6.43.1 (a term written after an empty query is not in the `title` index after `clear()` and `warm()`) and passes once the patches are applied.
+`tests/StacheClearFileItemsTest.php` is the regression test for `statamic-stache-clear-file-items.patch`. Copy it into the `tests/` directory of the same checkout and run it the same way: it fails on stock `statamic/cms` 6.43.1 (a term written after an empty query is not in the `title` index after `clear()` and `warm()`, after `Stache::refresh()`, or after the between-jobs reset and a `warm()`) and passes once the patches are applied.
 
 ## License
 

@@ -68,4 +68,29 @@ class StacheClearFileItemsTest extends TestCase
 
         $this->assertCount(1, Stache::store('terms')->store('tags')->index('title')->keys());
     }
+
+    #[Test]
+    public function a_term_written_between_two_jobs_is_indexed_by_a_warm_without_a_clear()
+    {
+        $store = Stache::store('terms')->store('tags');
+
+        // The first job builds the index on first use, outside a warm, while the taxonomy is empty.
+        $this->assertCount(0, $store->index('title')->keys());
+
+        file_put_contents($this->directory.'/tags/default_news.yaml', "title: Default News
+");
+
+        // What the Stache does between queue jobs and between Octane requests: it resets each
+        // store's paths and indexes, and no step of it resets the store's cached file items.
+        Stache::stores()->each->resetMemoizedState();
+        app('stache.indexes')->each->resetMemoizedState();
+
+        // The second job warms the Stache without clearing it first.
+        $store->warm();
+
+        $store->resetMemoizedState();
+        app('stache.indexes')->each->resetMemoizedState();
+
+        $this->assertCount(1, $store->index('title')->keys());
+    }
 }
