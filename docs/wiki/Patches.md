@@ -50,7 +50,7 @@ Written for [`UAMS-Web/uams-statamic#281`](https://github.com/UAMS-Web/uams-stat
 | --- | --- |
 | `statamic-stache-clear-file-items.patch` | `Store::clear()` in `src/Stache/Stores/Store.php` |
 
-A query outside a warm leaves the collection it read in the store, and `clear()` did not drop it, so the next `warm()` built every index from that collection. Since `statamic/cms` 6.43.0 (`statamic/cms#15897`) that includes the `title` index that term queries read, so a term file written after a query that found nothing was not returned after `clear()` and `warm()` or `Stache::refresh()`. The patch sets `$this->fileItems = null;` in `clear()`.
+A query outside a warm leaves the collection it read in the store, and nothing dropped it, so the next `warm()` built every index from that collection. Since `statamic/cms` 6.43.0 (`statamic/cms#15897`) that includes the `title` index that term queries read, so a term file written after a query that found nothing was not returned after `clear()` and `warm()`, after `Stache::refresh()`, or after a `warm()` in a queue worker or Octane process, whose between-jobs and between-requests reset clears each store's paths and indexes but not this collection. The patch sets `$this->fileItems = null;` at the start of `warm()`, the only place the collection is read back, so it covers every one of those paths. `clear()` is left alone: it needs no reset of its own.
 
 Written for [`UAMS-Web/aether-wordpress-importer#618`](https://github.com/UAMS-Web/aether-wordpress-importer/issues/618), and retires through [#33](https://github.com/UAMS-Web/patches-statamic-cms/issues/33) once a `statamic/cms` release carries an equivalent fix. No upstream report has been filed yet.
 

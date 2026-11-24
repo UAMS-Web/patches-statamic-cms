@@ -1,14 +1,14 @@
 diff --git a/src/Stache/Stores/Store.php b/src/Stache/Stores/Store.php
-index 1f6b5fe..4ed2836 100644
+index 1f6b5fe..53b5a7d 100644
 --- a/src/Stache/Stores/Store.php
 +++ b/src/Stache/Stores/Store.php
-@@ -433,6 +433,9 @@ abstract class Store
-         // Which indexes queries use is kept. It's what tells the next warm to build them,
-         // rather than leaving the first requests to build each one from every item.
+@@ -442,6 +442,9 @@ abstract class Store
  
-+        // A collection assigned by a query outside a warm would be read back by the next warm.
+     public function warm()
+     {
++        // A query outside a warm, such as an index built on first use, leaves its collection here.
 +        $this->fileItems = null;
 +
-         $this->clearCachedPaths();
+         $this->shouldCacheFileItems = true;
  
-         $this->keys()->clear();
+         $this->resolveIndexes()->each->update();
