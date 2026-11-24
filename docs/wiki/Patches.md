@@ -5,6 +5,7 @@ The package carries 11 patches, all against `statamic/cms` 6.40.0. This page gro
 - [Create labels that follow the blueprint](#create-labels-that-follow-the-blueprint)
 - [A Stache file removed while it is being read](#a-stache-file-removed-while-it-is-being-read)
 - [Collection blueprints served from an add-on directory](#collection-blueprints-served-from-an-add-on-directory)
+- [A Stache index built from a stale collection](#a-stache-index-built-from-a-stale-collection)
 
 ## Create labels that follow the blueprint
 
@@ -42,6 +43,16 @@ The first patch was written for [`UAMS-Web/uams-statamic-archive#2241`](https://
 A collection blueprint that an add-on serves from its own directory arrives with a namespace written with slashes, which stock 6.40.0 does not match against its registered namespaces, and the request fails with `Undefined array key 0`. The patch rewrites the slashes as dots before the lookup.
 
 Written for [`UAMS-Web/uams-statamic#281`](https://github.com/UAMS-Web/uams-statamic/issues/281), and retires through [#8](https://github.com/UAMS-Web/patches-statamic-cms/issues/8). Upstream: the report [`statamic/cms#15880`](https://github.com/statamic/cms/issues/15880) and the pull request [`statamic/cms#15881`](https://github.com/statamic/cms/pull/15881). The regression test is [`tests/CollectionBlueprintNamespaceTest.php`](https://github.com/UAMS-Web/patches-statamic-cms/blob/main/tests/CollectionBlueprintNamespaceTest.php); the README's [Verifying the set](https://github.com/UAMS-Web/patches-statamic-cms#verifying-the-set) says how to run it.
+
+## A Stache index built from a stale collection
+
+| Patch | Changes |
+| --- | --- |
+| `statamic-stache-clear-file-items.patch` | `Store::clear()` in `src/Stache/Stores/Store.php` |
+
+A query outside a warm leaves the collection it read in the store, and `clear()` did not drop it, so the next `warm()` built every index from that collection. Since `statamic/cms` 6.43.0 (`statamic/cms#15897`) that includes the `title` index that term queries read, so a term file written after a query that found nothing was not returned after `clear()` and `warm()` or `Stache::refresh()`. The patch sets `$this->fileItems = null;` in `clear()`.
+
+Written for [`UAMS-Web/aether-wordpress-importer#618`](https://github.com/UAMS-Web/aether-wordpress-importer/issues/618), and retires through [#33](https://github.com/UAMS-Web/patches-statamic-cms/issues/33) once a `statamic/cms` release carries an equivalent fix. No upstream report has been filed yet.
 
 ## When a patch retires
 

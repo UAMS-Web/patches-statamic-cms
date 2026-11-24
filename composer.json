@@ -10,7 +10,8 @@
       "statamic/cms": {
         "Add blueprint-aware collection create labels": "vendor/uams-web/patches-statamic-cms/patches/statamic-collection-create-label-blueprint.patch",
         "Add blueprint-aware taxonomy create labels": "vendor/uams-web/patches-statamic-cms/patches/statamic-taxonomy-create-label-blueprint.patch",
-        "Resolve a collection blueprint served from an add-on directory by normalizing the namespace in makeBlueprintFromFile() (temporary; see UAMS-Web/uams-statamic#281; upstream: statamic/cms#15880, statamic/cms#15881)": "vendor/uams-web/patches-statamic-cms/patches/statamic-blueprint-namespace-slash.patch"
+        "Resolve a collection blueprint served from an add-on directory by normalizing the namespace in makeBlueprintFromFile() (temporary; see UAMS-Web/uams-statamic#281; upstream: statamic/cms#15880, statamic/cms#15881)": "vendor/uams-web/patches-statamic-cms/patches/statamic-blueprint-namespace-slash.patch",
+        "Reset the Stache store's cached file items in clear() so a warm after a query outside a warm does not index from a stale collection (temporary; see UAMS-Web/aether-wordpress-importer#618; no upstream report yet)": "vendor/uams-web/patches-statamic-cms/patches/statamic-stache-clear-file-items.patch"
       }
     }
   },
